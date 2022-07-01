@@ -34,6 +34,7 @@ export function Home() {
 
       <h1>Lists you made here</h1>
       {playlists.map((currentPlaylist) => {
+        console.log(currentPlaylist);
         return (
           <PlaylistsCard
             owner={currentPlaylist.owner}

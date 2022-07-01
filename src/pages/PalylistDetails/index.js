@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function PlaylistDetails() {
-  const { id } = useParams;
+  const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
 
   const [pMovies, setPMovies] = useState({});
@@ -17,9 +18,10 @@ export function PlaylistDetails() {
                 `);
 
         setPMovies(response.data);
+        console.log(response);
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
         navigate("/error");
       }
     }

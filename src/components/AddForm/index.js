@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // AQUI VAI O axios.POST VARIOS FUNCAO HANDLE E
 //  DA PR COLOCAR UM TOASTER TAMBEM VARIOS USESTATE  ASYNC E AXUIS
 
-export function AddForm({ favList, setFavList }) {
+export function AddForm({ favList }) {
+  let navigate = useNavigate();
+
   const [form, setForm] = useState({
     owner: "",
     description: "",
@@ -16,12 +19,16 @@ export function AddForm({ favList, setFavList }) {
     setForm({ ...form, movies: favList, [e.target.name]: e.target.value });
   };
 
-  // const handleDelete = (title, { favList }) => {
-  //   const newForm = favList.filter((currentTitle) => {
-  //     return title !== currentTitle;
-  //   });
-  //   setFavList(newForm);
-  // };
+  const handleDelete = (title) => {
+    const clone = [...favList];
+    console.log(clone);
+    const newForm = clone.filter((currentTitle) => {
+      return title !== currentTitle;
+    });
+    console.log(newForm);
+    // setForm({...favList, form.movies:newForm});
+    //com setfav nao vai , pq ela nao existe aqui , como eu faco pra isso funcionar?
+  };
 
   const handleSubmit = async (error) => {
     error.preventDefault();
@@ -30,6 +37,7 @@ export function AddForm({ favList, setFavList }) {
         "https://ironrest.herokuapp.com/jinohong-proj02-teste",
         form
       );
+      navigate("/");
       console.log({ ...form });
     } catch (error) {
       console.log(error);
@@ -73,14 +81,16 @@ export function AddForm({ favList, setFavList }) {
                 <>
                   <li>{title.original_title}</li>
                   <button
-                    // onClick={handleDelete(title)}
-                    // NAO CONSIGO FAZER APAGAR A OPCAO
                     onClick={() => {
-                      const newList = favList.filter((currentTitle) => {
-                        return title !== currentTitle;
-                      });
-                      setFavList(newList);
+                      handleDelete(title);
                     }}
+                    // {() => {
+                    //   const newList = favList.filter((currentTitle) => {
+                    //     return title !== currentTitle;
+                    //   });
+                    //   setFavList(newList);
+                    // }}
+
                     type="button"
                     className="btn btn-danger"
                   >

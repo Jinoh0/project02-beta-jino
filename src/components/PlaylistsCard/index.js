@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export function PlaylistsCard({ owner, description }) {
+export function PlaylistsCard({ owner, description, id }) {
   return (
     <div className="card" style={{ width: "18rem" }}>
       <div className="card-body">
@@ -9,8 +9,8 @@ export function PlaylistsCard({ owner, description }) {
         <Link to={`/playlist-details/${id}`} className="card-link">
           See all details
         </Link>
-        <Link to="/" className="card-link">
-          Another link
+        <Link to={`/edit-playlist/${id}`} className="card-link">
+          Edit your playlist
         </Link>
       </div>
     </div>
